@@ -1,0 +1,93 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# =========================
+# Jupyter Notebook
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# Python tools
+# =========================
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =========================
+# Temporary files
+# =========================
+*.tmp
+*.temp
+*.log
+
+# =========================
+# Excel temporary files
+# =========================
+~$*.xlsx
+~$*.xls
+~$*.csv
+
+# =========================
+# Local databases
+# =========================
+*.sqlite-shm
+*.sqlite-wal
+
+# =========================
+# Power BI temporary/cache files
+# =========================
+*.pbit
+*.pbids
+
+# =========================
+# Large/raw datasets
+# =========================
+*.zip
+*.parquet
+
+# Uncomment these if you DON'T want raw CSV data in GitHub
+# data/*.csv
+# data/*.xlsx
+
+# =========================
+# Secrets / credentials
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Credentials / keys
+# =========================
+*.pem
+*.key
+credentials.json
+secrets.json
+# SQLite database
+olist.db
