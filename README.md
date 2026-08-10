@@ -1,944 +1,575 @@
-# \# 🛒 E-Commerce Sales \& Delivery Performance Analysis
+# 🛒 E-Commerce Sales & Delivery Performance Analysis
 
-# 
+An end-to-end **Data Analytics and Business Intelligence project** using **SQL, SQLite, Power BI, and DAX** to analyze the Olist Brazilian E-Commerce dataset and transform raw transactional data into actionable business insights.
 
-# An end-to-end \*\*Data Analytics and Business Intelligence project\*\* that analyzes real-world e-commerce data to understand sales performance, customer behavior, product demand, delivery efficiency, and customer satisfaction.
+---
 
-# 
+## 📌 Project Overview
 
-# The project combines \*\*SQL, SQLite, Power BI, DAX, Python, data modeling, and business intelligence\*\* to transform raw e-commerce transactions into actionable insights through analytical queries and an interactive dashboard.
+The project analyzes the **Olist Brazilian E-Commerce Public Dataset**, containing approximately **99,441 orders** from **September 2016 to October 2018**.
 
-# 
+The analysis focuses on:
 
-# \---
+- Revenue and sales performance
+- Monthly revenue trends
+- Order volume and Average Order Value (AOV)
+- Product category performance
+- Customer and state-level analysis
+- Delivery performance
+- Customer review scores
+- Relationship between delivery delays and customer satisfaction
+- Business performance indicators
 
-# 
+### Project Workflow
 
-# \## 📌 Project Overview
+```text
+Raw E-Commerce Data
+        ↓
+Data Loading & Preparation
+        ↓
+Relational Data Model
+        ↓
+SQL Analysis
+        ↓
+Business Metrics
+        ↓
+Power BI Data Model
+        ↓
+DAX Measures
+        ↓
+Interactive Dashboard
+        ↓
+Business Insights
+```
 
-# 
+---
 
-# The system analyzes the \*\*Olist Brazilian E-Commerce Public Dataset\*\*, containing approximately \*\*99,441 orders\*\* from September 2016 to October 2018.
+## 🚀 Key Features
 
-# 
+### 💰 Sales Performance Analysis
 
-# The project focuses on:
+- Total revenue analysis
+- Monthly revenue trends
+- Total order analysis
+- Average Order Value (AOV)
+- Revenue by product category
+- Revenue by customer state
 
-# 
+### 📦 Product Category Analysis
 
-# \- Revenue and sales performance
+Identifies the highest-performing product categories and compares category-level revenue and order performance.
 
-# \- Monthly revenue trends
+The analysis helps identify:
 
-# \- Order volume and average order value
+- Top revenue-generating categories
+- Category contribution to total revenue
+- High-value product segments
+- Category performance patterns
 
-# \- Product category performance
+### 🚚 Delivery Performance Analysis
 
-# \- Customer and state-level analysis
+Delivery performance is analyzed by comparing:
 
-# \- Delivery performance
+```text
+Actual Delivery Date
+        vs
+Estimated Delivery Date
+```
 
-# \- Customer review scores
+Orders are classified as:
 
-# \- Relationship between delivery delays and customer satisfaction
+```text
+On Time
+Late
+```
 
-# \- Business performance indicators
+This allows the project to measure the overall on-time delivery rate and investigate the effect of delivery delays on customer satisfaction.
 
-# 
+### ⭐ Customer Satisfaction Analysis
 
-# \### Project Workflow
+Customer review scores are analyzed and compared between:
 
-# 
+```text
+On-Time Deliveries
+        vs
+Late Deliveries
+```
 
-# ```text
+This helps identify the relationship between operational performance and customer satisfaction.
 
-# Raw E-Commerce Data
+### 🗺️ Geographic Analysis
 
-# &#x20;       ↓
+Revenue and order performance are analyzed across Brazilian customer states.
 
-# Data Loading \& Preparation
+This helps identify:
 
-# &#x20;       ↓
+- High-revenue states
+- High-AOV states
+- Geographic sales patterns
+- Potential market opportunities
 
-# Relational Data Model
+---
 
-# &#x20;       ↓
+## 🧠 SQL Analysis
 
-# SQL Analysis
+The project includes business-focused SQL queries designed to answer practical e-commerce questions.
 
-# &#x20;       ↓
+### SQL Techniques Used
 
-# Business Metrics
+- Multi-table `JOIN`
+- `GROUP BY`
+- Aggregate functions
+- `HAVING`
+- `CASE WHEN`
+- Common Table Expressions (CTEs)
+- Window functions
+- `RANK() OVER()`
+- Conditional aggregation
+- Customer retention analysis
+- Revenue analysis
+- Delivery performance analysis
 
-# &#x20;       ↓
+### Example Business Questions
 
-# Power BI Data Model
+The SQL analysis answers questions such as:
 
-# &#x20;       ↓
+1. What is the total revenue generated?
+2. Which product categories generate the most revenue?
+3. Which states have the highest Average Order Value?
+4. What percentage of orders are delivered on time?
+5. Does late delivery affect customer satisfaction?
+6. How valuable are repeat customers?
+7. Which categories have the highest sales performance?
 
-# DAX Measures
+---
 
-# &#x20;       ↓
+## 📊 Power BI Dashboard
 
-# Interactive Dashboard
+The project includes an interactive **Power BI dashboard** designed to provide an executive-level overview of e-commerce performance.
 
-# &#x20;       ↓
+### KPI Cards
 
-# Business Insights
+The dashboard includes:
 
-# 🚀 Key Features
+- 💰 **Total Revenue**
+- 🛒 **Total Orders**
+- 📦 **Average Order Value**
+- ⭐ **Average Review Score**
+- 🚚 **On-Time Delivery %**
 
-# 💰 Sales Performance Analysis
+### Dashboard Visualizations
 
-# Total revenue analysis
+- 📈 Monthly Revenue Trend
+- 📊 Top Revenue-Generating Product Categories
+- 🗺️ Revenue by Customer State
+- ⭐ Review Score: On-Time vs Late Delivery
+- 🔎 Interactive Date Filter
+- 🔎 State Filter
 
-# Monthly revenue trends
+---
 
-# Total order analysis
+## 🧮 DAX Measures
 
-# Average Order Value (AOV)
+### Total Revenue
 
-# Revenue by product category
+```DAX
+Total Revenue =
+CALCULATE(
+    SUM(olist_order_items_dataset[price]),
+    olist_orders_dataset[order_status] = "delivered"
+)
+```
 
-# Revenue by customer state
+### Total Orders
 
-# 📦 Product Category Analysis
+```DAX
+Total Orders =
+DISTINCTCOUNT(olist_orders_dataset[order_id])
+```
 
-# 
+### Average Order Value
 
-# Identifies the highest-revenue product categories and compares category-level performance.
+```DAX
+Avg Order Value =
+DIVIDE(
+    [Total Revenue],
+    [Total Orders]
+)
+```
 
-# 
+### Average Review Score
 
-# The analysis helps identify:
+```DAX
+Avg Review Score =
+AVERAGE(olist_order_reviews_dataset[review_score])
+```
 
-# 
+### On-Time Delivery %
 
-# Top revenue-generating categories
+```DAX
+On-Time Delivery % =
+DIVIDE(
+    CALCULATE(
+        COUNTROWS(olist_orders_dataset),
+        olist_orders_dataset[order_delivered_customer_date]
+            <= olist_orders_dataset[order_estimated_delivery_date]
+    ),
+    COUNTROWS(olist_orders_dataset)
+)
+```
 
-# Category contribution to total revenue
+---
 
-# High-value product segments
+## 🔧 Calculated Columns
 
-# Category performance patterns
+A calculated column was created to classify delivery performance.
 
-# 🚚 Delivery Performance Analysis
+```DAX
+Delivery Status =
+IF(
+    ISBLANK(olist_orders_dataset[order_delivered_customer_date]),
+    BLANK(),
+    IF(
+        olist_orders_dataset[order_delivered_customer_date]
+            > olist_orders_dataset[order_estimated_delivery_date],
+        "Late",
+        "On Time"
+    )
+)
+```
 
-# 
+This column is used to compare customer review scores between on-time and late deliveries.
+
+---
+
+## 📈 Key Business Insights
+
+The analysis produced several important findings:
 
-# Analyzes order delivery performance by comparing:
+- Approximately **$13.2M revenue** was generated from delivered orders.
+- Around **91.9% of orders were delivered on time**.
+- Late deliveries were associated with significantly lower customer review scores.
+- **Health & Beauty** was one of the highest-revenue product categories.
+- **Watches & Gifts** showed a high Average Order Value.
+- Repeat customers generated substantially higher lifetime value than one-time customers.
+- Some states showed high average order values despite relatively lower order volumes.
 
-# 
+### Business Opportunities
 
-# Actual Delivery Date
+These findings highlight opportunities related to:
 
-# &#x20;       vs
+- 🚚 Delivery optimization
+- 👥 Customer retention
+- 📦 Product category strategy
+- ⭐ Customer satisfaction
+- 📈 Revenue growth
 
-# Estimated Delivery Date
+---
 
-# 
+## 🗂️ Dataset
 
-# Orders are classified as:
+The project uses the **Olist Brazilian E-Commerce Public Dataset**.
 
-# 
+The dataset contains approximately **99K orders** and includes information about:
 
-# On Time
+- Customers
+- Orders
+- Products
+- Sellers
+- Payments
+- Reviews
+- Product categories
 
-# Late
+### Main Tables
 
-# 
+```text
+customers
+orders
+order_items
+order_payments
+order_reviews
+products
+sellers
+category_translation
+```
 
-# This allows the project to measure the overall on-time delivery rate and investigate the effect of delivery delays.
+### Dataset Time Period
 
-# 
+```text
+September 2016
+        ↓
+October 2018
+```
 
-# ⭐ Customer Satisfaction Analysis
+The dataset contains anonymized e-commerce transaction information.
 
-# 
+---
 
-# Analyzes customer review scores and compares satisfaction between:
+## 🏗️ Data Model
 
-# 
+The project uses a relational data model connecting transactional and master data.
 
-# On-Time Deliveries
+```text
+Customers
+    │
+    ▼
+Orders
+    │
+    ├──────────────► Order Items
+    │                    │
+    │                    ├────────► Products
+    │                    │
+    │                    └────────► Sellers
+    │
+    ├──────────────► Order Payments
+    │
+    └──────────────► Order Reviews
 
-# &#x20;       vs
+Products
+    │
+    ▼
+Category Translation
+```
 
-# Late Deliveries
+### Main Relationships
 
-# 
+| From | To | Relationship |
+|---|---|---|
+| `orders[order_id]` | `order_items[order_id]` | One-to-Many |
+| `orders[order_id]` | `order_payments[order_id]` | One-to-Many |
+| `orders[order_id]` | `order_reviews[order_id]` | One-to-Many |
+| `orders[customer_id]` | `customers[customer_id]` | Many-to-One |
+| `order_items[product_id]` | `products[product_id]` | Many-to-One |
+| `order_items[seller_id]` | `sellers[seller_id]` | Many-to-One |
+| `products[product_category_name]` | `category_translation[product_category_name]` | Many-to-One |
 
-# This helps identify the relationship between operational performance and customer satisfaction.
+---
 
-# 
+## 📸 Dashboard Preview
 
-# 🗺️ Geographic Analysis
+![E-Commerce Sales & Delivery Dashboard](dashboard_screenshot.png)
 
-# 
+---
 
-# Analyzes revenue and order performance across Brazilian customer states.
+## 📁 Project Structure
 
-# 
+```text
+ecommerce-sales-delivery-analysis/
+│
+├── Ecommerce_Sales_Dashboard.pbix
+├── queries.sql
+├── dashboard_screenshot.png
+├── README.md
+└── .gitignore
+```
 
-# This helps identify:
+---
 
-# 
+## 📄 File Responsibilities
 
-# High-revenue states
+| File | Purpose |
+|---|---|
+| `Ecommerce_Sales_Dashboard.pbix` | Interactive Power BI dashboard |
+| `queries.sql` | Business-focused SQL analysis queries |
+| `dashboard_screenshot.png` | Dashboard preview for GitHub |
+| `README.md` | Project documentation |
+| `.gitignore` | Prevents unnecessary/local files from being uploaded |
 
-# High average order value states
+---
 
-# Geographic sales patterns
+## ▶️ How to Rebuild the Project
 
-# Potential market opportunities
+### 1. Download the Dataset
 
-# 🧠 SQL Analysis
+Download the Olist Brazilian E-Commerce dataset and extract the CSV files.
 
-# 
+### 2. Load Data into Power BI
 
-# The project includes business-focused SQL queries designed to answer practical e-commerce questions.
+Open **Power BI Desktop**:
 
-# 
+```text
+Get Data
+   ↓
+Text/CSV
+   ↓
+Select CSV files
+   ↓
+Load
+```
 
-# SQL Techniques Used
+Import the required tables into Power BI.
 
-# Multi-table JOIN
+### 3. Create Relationships
 
-# GROUP BY
+Open **Model View** and establish the relationships listed in the Data Model section.
 
-# Aggregation functions
+### 4. Create DAX Measures
 
-# HAVING
+Create the required DAX measures listed in the DAX Measures section.
 
-# CASE WHEN
+### 5. Create the Dashboard
 
-# Common Table Expressions (CTEs)
+Build the following visuals:
 
-# Window functions
+```text
+KPI Cards
+     ↓
+Monthly Revenue Trend
+     ↓
+Top Product Categories
+     ↓
+Revenue by State
+     ↓
+On-Time vs Late Review Score
+```
 
-# RANK() OVER()
+### 6. Apply Filters
 
-# Conditional aggregation
+Add interactive slicers for:
 
-# Customer retention analysis
+- Date
+- Customer State
 
-# Revenue analysis
+### 7. Save the Power BI File
 
-# Delivery performance analysis
+Save the project as:
 
-# Example Business Questions
+```text
+Ecommerce_Sales_Dashboard.pbix
+```
 
-# 
+---
 
-# The SQL analysis answers questions such as:
+## 🛠️ Technologies Used
 
-# 
+### Data Analytics
 
-# What is the total revenue generated?
+- Data Cleaning
+- Exploratory Data Analysis
+- Business Analysis
+- Data Modeling
 
-# Which product categories generate the most revenue?
+### SQL
 
-# Which states have the highest average order value?
+- Joins
+- Aggregations
+- CTEs
+- CASE statements
+- HAVING
+- Window Functions
+- Ranking
 
-# What percentage of orders are delivered on time?
+### Power BI
 
-# Does late delivery affect customer satisfaction?
+- Power BI Desktop
+- Data Modeling
+- Interactive Dashboards
+- KPI Cards
+- Bar Charts
+- Line Charts
+- Filters and Slicers
 
-# How valuable are repeat customers?
+### DAX
 
-# Which categories have the highest sales performance?
+- Measures
+- Calculated Columns
+- Conditional Calculations
+- KPI Calculations
 
-# 📊 Power BI Dashboard
+### Database
 
-# 
+- SQLite
+- Relational Data Modeling
 
-# The project includes an interactive Power BI dashboard designed to provide an executive-level overview of e-commerce performance.
+---
 
-# 
+## ⚠️ Limitations
 
-# KPI Cards
+- The analysis is based on historical Olist marketplace data.
+- The dataset does not represent the entire Brazilian e-commerce market.
+- Customer behavior insights depend on the available transaction history.
+- Delivery performance depends on the recorded delivery and estimated delivery dates.
+- The dashboard is not connected to live e-commerce data.
+- Revenue calculations focus on delivered orders where specified.
 
-# 
+---
 
-# The dashboard includes:
+## 🔮 Future Improvements
 
-# 
+Possible future enhancements include:
 
-# 💰 Total Revenue
+- 🌐 Real-time e-commerce data integration
+- 📈 Automated Power BI refresh
+- 🤖 Sales forecasting
+- 📦 Demand forecasting
+- 👥 Customer churn prediction
+- 🎯 Customer segmentation using clustering
+- 💰 Profit and margin analysis
+- 🚚 Delivery-time prediction
+- 📍 Advanced geographic analysis
+- 🧠 Customer lifetime value modeling
+- 📊 Automated business reporting
+- 🗄️ Cloud data warehouse integration
 
-# 🛒 Total Orders
+---
 
-# 📦 Average Order Value
+## 🎯 Business Objectives
 
-# ⭐ Average Review Score
+The primary objective of this project is to demonstrate how raw e-commerce data can be transformed into actionable business intelligence.
 
-# 🚚 On-Time Delivery %
+The project helps answer:
 
-# Dashboard Visualizations
+- What are the major revenue trends?
+- Which products and categories perform best?
+- Which regions generate the most revenue?
+- How efficient is the delivery process?
+- Does late delivery affect customer satisfaction?
+- Which areas provide opportunities for business improvement?
 
-# 
+---
 
-# The dashboard contains:
+## 🎓 Skills Demonstrated
 
-# 
+### Data Analytics
 
-# 📈 Monthly Revenue Trend
+Data Cleaning · EDA · Business Analysis · Data Modeling
 
-# 📊 Top Revenue-Generating Product Categories
+### SQL
 
-# 🗺️ Revenue by Customer State
+Joins · CTEs · Aggregations · CASE · HAVING · Window Functions · Ranking
 
-# ⭐ Review Score: On-Time vs Late Delivery
+### Power BI
 
-# 🔎 Interactive Date Filter
+Data Modeling · Dashboard Development · KPI Cards · Data Visualization · Slicers
 
-# 🔎 State Filter
+### DAX
 
-# 🧮 DAX Measures
+Measures · Calculated Columns · Conditional Logic · KPI Analysis
 
-# 
+### Business Intelligence
 
-# The Power BI dashboard uses DAX measures to calculate key business metrics.
+Sales Analysis · Customer Analysis · Product Analysis · Delivery Performance · Customer Satisfaction
 
-# 
+---
 
-# Total Revenue
+## 📌 Project Outcome
 
-# Total Revenue =
+This project demonstrates an end-to-end analytics workflow, from **raw e-commerce data and SQL analysis to data modeling, DAX calculations, Power BI visualization, and business insights**.
 
-# CALCULATE(
+It showcases practical skills relevant to **Data Analyst, Business Intelligence Analyst, and Data Analytics roles** by transforming complex transactional data into an interactive and decision-oriented dashboard.
 
-# &#x20;   SUM(olist\_order\_items\_dataset\[price]),
+---
 
-# &#x20;   olist\_orders\_dataset\[order\_status] = "delivered"
+## 📜 License
 
-# )
+This project is intended for educational and portfolio purposes.
 
-# Total Orders
+The Olist dataset is publicly available and subject to its original dataset terms and conditions.
 
-# Total Orders =
+---
 
-# DISTINCTCOUNT(olist\_orders\_dataset\[order\_id])
+## 👩‍💻 Author
 
-# Average Order Value
+**Palak Kumain**
 
-# Avg Order Value =
-
-# DIVIDE(
-
-# &#x20;   \[Total Revenue],
-
-# &#x20;   \[Total Orders]
-
-# )
-
-# Average Review Score
-
-# Avg Review Score =
-
-# AVERAGE(olist\_order\_reviews\_dataset\[review\_score])
-
-# On-Time Delivery %
-
-# On-Time Delivery % =
-
-# DIVIDE(
-
-# &#x20;   CALCULATE(
-
-# &#x20;       COUNTROWS(olist\_orders\_dataset),
-
-# &#x20;       olist\_orders\_dataset\[order\_delivered\_customer\_date]
-
-# &#x20;           <= olist\_orders\_dataset\[order\_estimated\_delivery\_date]
-
-# &#x20;   ),
-
-# &#x20;   COUNTROWS(olist\_orders\_dataset)
-
-# )
-
-# 🔧 Calculated Columns
-
-# 
-
-# A calculated column was created to classify delivery performance.
-
-# 
-
-# Delivery Status =
-
-# IF(
-
-# &#x20;   ISBLANK(olist\_orders\_dataset\[order\_delivered\_customer\_date]),
-
-# &#x20;   BLANK(),
-
-# &#x20;   IF(
-
-# &#x20;       olist\_orders\_dataset\[order\_delivered\_customer\_date]
-
-# &#x20;           > olist\_orders\_dataset\[order\_estimated\_delivery\_date],
-
-# &#x20;       "Late",
-
-# &#x20;       "On Time"
-
-# &#x20;   )
-
-# )
-
-# 
-
-# This column is used to compare customer review scores between on-time and late deliveries.
-
-# 
-
-# 📈 Key Business Insights
-
-# 
-
-# The analysis produced several important business findings:
-
-# 
-
-# Approximately $13.2M revenue was generated from delivered orders.
-
-# Around 91.9% of orders were delivered on time.
-
-# Late deliveries were associated with significantly lower customer review scores.
-
-# Health \& Beauty was one of the highest-revenue product categories.
-
-# Watches \& Gifts showed a high average order value.
-
-# Repeat customers generated substantially higher lifetime value than one-time customers.
-
-# Some states showed high average order values despite relatively lower order volumes.
-
-# 
-
-# These findings highlight opportunities related to:
-
-# 
-
-# 🚚 Delivery optimization
-
-# 👥 Customer retention
-
-# 📦 Product category strategy
-
-# ⭐ Customer satisfaction
-
-# 📈 Revenue growth
-
-# 🗂️ Dataset
-
-# 
-
-# The project uses the Olist Brazilian E-Commerce Public Dataset.
-
-# 
-
-# The dataset contains approximately 99K orders and includes information about customers, orders, products, sellers, payments, reviews, and product categories.
-
-# 
-
-# Main Tables
-
-# customers
-
-# orders
-
-# order\_items
-
-# order\_payments
-
-# order\_reviews
-
-# products
-
-# sellers
-
-# category\_translation
-
-# Dataset Time Period
-
-# September 2016
-
-# &#x20;       ↓
-
-# October 2018
-
-# 
-
-# The dataset is publicly available and contains anonymized e-commerce transaction information.
-
-# 
-
-# 🏗️ Data Model
-
-# 
-
-# The project uses a relational data model connecting transactional and master data.
-
-# 
-
-# Customers
-
-# &#x20;   │
-
-# &#x20;   ▼
-
-# Orders
-
-# &#x20;   │
-
-# &#x20;   ├──────────────► Order Items
-
-# &#x20;   │                    │
-
-# &#x20;   │                    ├────────► Products
-
-# &#x20;   │                    │
-
-# &#x20;   │                    └────────► Sellers
-
-# &#x20;   │
-
-# &#x20;   ├──────────────► Order Payments
-
-# &#x20;   │
-
-# &#x20;   └──────────────► Order Reviews
-
-# 
-
-# Products
-
-# &#x20;   │
-
-# &#x20;   ▼
-
-# Category Translation
-
-# Main Relationships
-
-# orders\[order\_id]
-
-# &#x20;       ↓
-
-# order\_items\[order\_id]
-
-# 
-
-# orders\[order\_id]
-
-# &#x20;       ↓
-
-# order\_payments\[order\_id]
-
-# 
-
-# orders\[order\_id]
-
-# &#x20;       ↓
-
-# order\_reviews\[order\_id]
-
-# 
-
-# orders\[customer\_id]
-
-# &#x20;       ↓
-
-# customers\[customer\_id]
-
-# 
-
-# order\_items\[product\_id]
-
-# &#x20;       ↓
-
-# products\[product\_id]
-
-# 
-
-# order\_items\[seller\_id]
-
-# &#x20;       ↓
-
-# sellers\[seller\_id]
-
-# 
-
-# products\[product\_category\_name]
-
-# &#x20;       ↓
-
-# category\_translation\[product\_category\_name]
-
-# 📸 Dashboard Preview
-
-# 
-
-# 📁 Project Structure
-
-# ecommerce-sales-delivery-analysis/
-
-# │
-
-# ├── Ecommerce\_Sales\_Dashboard.pbix
-
-# ├── queries.sql
-
-# ├── dashboard\_screenshot.png
-
-# ├── README.md
-
-# └── .gitignore
-
-# 📄 File Responsibilities
-
-# File	Purpose
-
-# Ecommerce\_Sales\_Dashboard.pbix	Interactive Power BI dashboard
-
-# queries.sql	Business-focused SQL analysis queries
-
-# dashboard\_screenshot.png	Dashboard preview for GitHub
-
-# README.md	Project documentation
-
-# .gitignore	Prevents unnecessary files from being uploaded
-
-# ▶️ How to Rebuild the Project
-
-# 1\. Download the Dataset
-
-# 
-
-# Download the Olist Brazilian E-Commerce dataset and extract the CSV files.
-
-# 
-
-# 2\. Load Data into Power BI
-
-# 
-
-# Open Power BI Desktop:
-
-# 
-
-# Get Data
-
-# &#x20;  ↓
-
-# Text/CSV
-
-# &#x20;  ↓
-
-# Select CSV files
-
-# &#x20;  ↓
-
-# Load
-
-# 
-
-# Import the required tables into Power BI.
-
-# 
-
-# 3\. Create Relationships
-
-# 
-
-# Open Model View and establish relationships between:
-
-# 
-
-# Orders
-
-# &#x20;   ↓
-
-# Order Items
-
-# Order Payments
-
-# Order Reviews
-
-# Customers
-
-# 
-
-# Order Items
-
-# &#x20;   ↓
-
-# Products
-
-# Sellers
-
-# 
-
-# Products
-
-# &#x20;   ↓
-
-# Category Translation
-
-# 4\. Create DAX Measures
-
-# 
-
-# Create the required measures listed in the DAX Measures section.
-
-# 
-
-# 5\. Create the Dashboard
-
-# 
-
-# Build the following visuals:
-
-# 
-
-# KPI Cards
-
-# &#x20;    ↓
-
-# Monthly Revenue Trend
-
-# &#x20;    ↓
-
-# Top Product Categories
-
-# &#x20;    ↓
-
-# Revenue by State
-
-# &#x20;    ↓
-
-# On-Time vs Late Review Score
-
-# 6\. Apply Filters
-
-# 
-
-# Add interactive slicers for:
-
-# 
-
-# Date
-
-# Customer State
-
-# 7\. Save the Power BI File
-
-# 
-
-# Save the project as:
-
-# 
-
-# Ecommerce\_Sales\_Dashboard.pbix
-
-# 🛠️ Technologies Used
-
-# Data Analytics
-
-# Data Cleaning
-
-# Exploratory Data Analysis
-
-# Business Analysis
-
-# Data Modeling
-
-# SQL
-
-# Joins
-
-# Aggregations
-
-# CTEs
-
-# CASE statements
-
-# HAVING
-
-# Window Functions
-
-# Ranking
-
-# Power BI
-
-# Power BI Desktop
-
-# Data Modeling
-
-# Interactive Dashboards
-
-# KPI Cards
-
-# Bar Charts
-
-# Line Charts
-
-# Filters and Slicers
-
-# DAX
-
-# Measures
-
-# Calculated Columns
-
-# Conditional Calculations
-
-# KPI Calculations
-
-# Database
-
-# SQLite
-
-# Relational Data Modeling
-
-# ⚠️ Limitations
-
-# The analysis is based on historical Olist marketplace data.
-
-# The dataset does not represent the entire Brazilian e-commerce market.
-
-# Customer behavior insights depend on the available transaction history.
-
-# Delivery performance depends on the recorded delivery and estimated delivery dates.
-
-# The dashboard is not connected to live e-commerce data.
-
-# Revenue calculations focus on delivered orders where specified.
-
-# 🔮 Future Improvements
-
-# 
-
-# Possible future enhancements include:
-
-# 
-
-# 🌐 Real-time e-commerce data integration
-
-# 📈 Automated Power BI refresh
-
-# 🤖 Sales forecasting
-
-# 📦 Demand forecasting
-
-# 👥 Customer churn prediction
-
-# 🎯 Customer segmentation using clustering
-
-# 💰 Profit and margin analysis
-
-# 🚚 Delivery-time prediction
-
-# 📍 Advanced geographic analysis
-
-# 🧠 Customer lifetime value modeling
-
-# 📊 Automated business reporting
-
-# 🗄️ Cloud data warehouse integration
-
-# 🎯 Business Objectives
-
-# 
-
-# The primary objective of this project is to demonstrate how raw e-commerce data can be transformed into actionable business intelligence.
-
-# 
-
-# The project helps answer:
-
-# 
-
-# What are the major revenue trends?
-
-# Which products and categories perform best?
-
-# Which regions generate the most revenue?
-
-# How efficient is the delivery process?
-
-# Does late delivery affect customer satisfaction?
-
-# Which areas provide opportunities for business improvement?
-
-# 🎓 Skills Demonstrated
-
-# 
-
-# Data Analytics:
-
-# Data Cleaning · EDA · Business Analysis · Data Modeling
-
-# 
-
-# SQL:
-
-# Joins · CTEs · Aggregations · CASE · HAVING · Window Functions · Ranking
-
-# 
-
-# Power BI:
-
-# Data Modeling · Dashboard Development · KPI Cards · Data Visualization · Slicers
-
-# 
-
-# DAX:
-
-# Measures · Calculated Columns · Conditional Logic · KPI Analysis
-
-# 
-
-# Business Intelligence:
-
-# Sales Analysis · Customer Analysis · Product Analysis · Delivery Performance · Customer Satisfaction
-
-# 
-
-# 📌 Project Outcome
-
-# 
-
-# This project demonstrates an end-to-end analytics workflow, from raw e-commerce data and SQL analysis to data modeling, DAX calculations, Power BI visualization, and business insights.
-
-# 
-
-# It showcases practical skills required for Data Analyst, Business Intelligence Analyst, and Data Analytics roles by transforming complex transactional data into an interactive and decision-oriented dashboard.
-
-# 
-
-# 📜 License
-
-# 
-
-# This project is intended for educational and portfolio purposes.
-
-# 
-
-# The Olist dataset is publicly available and subject to its original dataset terms and conditions.
-
-# 
-
-# 👩‍💻 Author
-
-# 
-
-# Palak Kumain
-
-# 
-
-# BCA — Artificial Intelligence \& Data Science
-
+BCA — Artificial Intelligence & Data Science
